@@ -16,7 +16,7 @@
 
 ---
 
-### 🏁 An autonomous, high-speed line-following robot designed to navigate tracks with precision using a 12-channel infrared sensor array, an ESP32 microcontroller, and a PID-based motor control system.
+### 🏁 An autonomous, high-speed line-following robot designed to navigate tracks with precision using a 16-channel infrared sensor array, an ESP32 microcontroller, and a PID-based motor control system.
 
 </div>
 
@@ -46,13 +46,13 @@
 
 The **Fast Line Follower Robot** is an autonomous robotic platform developed for **TechnoXian**, designed to follow a predefined track at high speed while maintaining stability and accuracy.
 
-The robot uses a **12-channel sensor array from Robo Junkies** to continuously detect the position of a track relative to the robot.
+The robot uses a **16-channel sensor array from Robo Junkies** to continuously detect the position of a track relative to the robot.
 
 An **ESP32 microcontroller** processes the sensor readings and executes a PID-based control algorithm to calculate the correction required to keep the robot aligned with the track.
 
 The correction is then translated into independent motor commands through a motor driver, allowing the robot to adjust its direction dynamically.
 
-With **600 RPM motors**, a multi-sensor tracking system, and real-time feedback control, the robot is designed to achieve fast and responsive line following.
+With **N20 600 RPM motors**, a multi-sensor tracking system, and real-time feedback control, the robot is designed to achieve fast and responsive line following.
 
 ### 🎯 Project Objectives
 
@@ -70,7 +70,7 @@ With **600 RPM motors**, a multi-sensor tracking system, and real-time feedback 
 | Feature              | Description                                    |
 | -------------------- | ---------------------------------------------- |
 | 🧠 Microcontroller   | ESP32                                          |
-| 👁️ Sensor System    | 12-channel sensor array by Robo Junkies        |
+| 👁️ Sensor System    | 16-channel sensor array by Robo Junkies        |
 | ⚙️ Motor System      | 600 RPM DC motors                              |
 | 🎮 Control Algorithm | PID (Proportional–Integral–Derivative)         |
 | 🔌 Motor Control     | Dual-motor differential steering               |
@@ -90,7 +90,7 @@ The ESP32 processes this information, calculates the steering correction using P
 
 ```mermaid
 flowchart TD
-    A["🛣️ Track Surface"] --> B["👁️ 12-Channel Sensor Array"]
+    A["🛣️ Track Surface"] --> B["👁️ 16-Channel Sensor Array"]
     B --> C["🧠 ESP32 Microcontroller"]
     C --> D["📊 Sensor Processing"]
     D --> E["🎯 Line Position Calculation"]
@@ -108,7 +108,7 @@ flowchart TD
 
 **1️⃣ Sensor Layer — Track Detection**
 
-The 12-channel sensor array detects the contrast between the track and the surrounding surface.
+The 16-channel sensor array detects the contrast between the track and the surrounding surface.
 
 It provides multiple sensing points across the front of the robot, allowing the controller to estimate the line's position relative to the robot's center.
 
@@ -151,15 +151,13 @@ Its design influences the robot's stability, traction, and ability to navigate c
 | S. No. | Component          | Specification                        | Purpose                           |
 | ------ | ------------------ | ------------------------------------ | --------------------------------- |
 | 1      | 🧠 Microcontroller | ESP32                                | Main processing and control       |
-| 2      | 👁️ Sensor Array   | 12-channel Robo Junkies array        | Line detection                    |
+| 2      | 👁️ Sensor Array   | 16-channel Robo Junkies array        | Line detection                    |
 | 3      | ⚙️ DC Motors       | 600 RPM                              | Robot propulsion                  |
 | 4      | 🔌 Motor Driver    | Model to be confirmed                | Motor speed and direction control |
 | 5      | 🛞 Wheels          | Model to be confirmed                | Traction and movement             |
 | 6      | 🏗️ Chassis        | Model to be confirmed                | Mechanical support                |
 | 7      | 🔋 Battery         | Voltage and capacity to be confirmed | Power supply                      |
 | 8      | 🔗 Wiring          | Suitable connectors and wires        | Electrical connections            |
-
-> ⚠️ The exact motor driver, battery, wheel specifications, and sensor-array interface need to be confirmed before finalizing the hardware documentation.
 
 ---
 
@@ -199,8 +197,6 @@ flowchart TD
 | `Main Loop`       | Coordinates the control cycle         |
 | `Calibration`     | Handles sensor calibration and tuning |
 
-*These are conceptual modules; the actual firmware may use different names or a single source file.*
-
 ---
 
 # 🎯 PID Control System
@@ -233,4 +229,9 @@ $$
 
 The derivative term responds to how quickly the error changes.
 
-It can help reduce oscillations and improve the stability of the co
+It can help reduce oscillations and improve the stability of the controller by damping overshoot and rapid changes in error
+
+$$
+D = K_d \times \frac{de(t)}{dt}
+$$
+
